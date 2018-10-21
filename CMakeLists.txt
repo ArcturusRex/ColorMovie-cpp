@@ -22,12 +22,18 @@ if(NOT EXISTS ${COLORMOVIE_INSTALL_DIRECTORY})
     file(MAKE_DIRECTORY ${COLORMOVIE_INSTALL_DIRECTORY})
 endif()
 
+# Dependencies
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/External-OpenCV.cmake)
+set(COLORMOVIE_DEPENDENCIES ${COLORMOVIE_DEPENDENCIES} ${OPENCV_LIBRARIES} ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
+# Sources
 set(COLORMOVIE_SOURCES algo/src/kMeansCluster.cpp)
+
+# Includes
 set(COLOLORMOVIE_INCLUDE_DIRECTORIES algo/include)
-set(COLORMOVIE_DEPENDENCIES ${COLORMOVIE_DEPENDENCIES} ${OPENCV_LIBRARIES})
 include_directories(${COLOLORMOVIE_INCLUDE_DIRECTORIES})
+
+# Target
 add_executable(ColorMovie ${COLORMOVIE_SOURCES})
 add_dependencies(ColorMovie myopencv)   
-target_link_libraries(ColorMovie ${COLORMOVIE_DEPENDENCIES} ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})   
+target_link_libraries(ColorMovie ${COLORMOVIE_DEPENDENCIES} )   
