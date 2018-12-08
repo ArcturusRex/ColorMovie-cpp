@@ -7,15 +7,16 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "kMeansCluster.h"
 
-using namespace algo;
 
-double squareDist2d(Point2d ptA, Point2d ptB)
+double algo::squareDist2d(Point2d ptA, Point2d ptB)
 {
     float dist = {0.0};
 
     dist = std::pow(ptB.x - ptA.x, 2) + std::pow(ptB.y - ptA.y, 2);
     return dist;
 }
+
+using namespace algo;
 
 PointSet KMeans::kMeansClustering(uint32_t iterations, uint32_t nbClusters)
 {
@@ -42,10 +43,10 @@ PointSet KMeans::kMeansClustering(uint32_t iterations, uint32_t nbClusters)
             uint32_t id = ptId(randomEngine);
 
             // Select Id while the one selected is already used
-            while(std::find(kMeansId.begin(), kMeansId.end(), id)!=kMeansId.end()) 
+            while(std::find(kMeansId.begin(), kMeansId.end(), id)!=kMeansId.end())
             {
                 id = ptId(randomEngine);
-            } 
+            }
             kMeans[i].x = m_points[id].x;
             kMeans[i].y = m_points[id].y;
             kMeansId.push_back(id);
@@ -58,7 +59,7 @@ PointSet KMeans::kMeansClustering(uint32_t iterations, uint32_t nbClusters)
         exit;
     }
 
-    // Clustering according to given centroids and centroid updating 
+    // Clustering according to given centroids and centroid updating
     for(int i =0; i < iterations; i++)
     {
         for(auto & point : m_points)
@@ -67,7 +68,7 @@ PointSet KMeans::kMeansClustering(uint32_t iterations, uint32_t nbClusters)
             std::vector<double> distKMeansVec;
             for(auto const & kMeansPoint : kMeans)
             {
-                double distKmeans = {0.0};            
+                double distKmeans = {0.0};
                 distKMeansVec.push_back(squareDist2d(kMeansPoint, point));
             }
 
@@ -105,7 +106,7 @@ PointSet KMeans::kMeansClustering(uint32_t iterations, uint32_t nbClusters)
     return kMeans;
 }
 
-// Generate random 2D point set, compute k-means and print results in an opencv window 
+// Generate random 2D point set, compute k-means and print results in an opencv window
 // (green circle : point, red circle : k-means centroid)
 void KMeans::test2DClustering()
 {
@@ -120,7 +121,7 @@ void KMeans::test2DClustering()
 
     //create a test gui window:
     cv::namedWindow("2D clustering test",1);
-    
+
     //initialize a matrix of black pixels:
     cv::Mat output = cv::Mat::zeros((int)pointSetMaxRange*10, (int)pointSetMaxRange*10, CV_8UC3 );
 
@@ -184,7 +185,7 @@ void KMeans::test2DClustering()
         cvClustVec.push_back(cvClust);
         std::cout << "XMean : " << kMean.x << " YMean : " << kMean.y << std::endl;
     }
-   
+
 
     //write text on the matrix:
     cv::Scalar green(0.0, 255.0, 0.0);
@@ -200,13 +201,13 @@ void KMeans::test2DClustering()
         cv::Point2f clustPt2(cvClust.x + 2, cvClust.y + 2);
         cv::rectangle(output, clustPt1, clustPt2, red, 2);
     }
-    
+
     //display the image:
     cv::imshow("2D clustering test", output);
-    
+
     //wait for the user to press any key:
     cv::waitKey(0);
-} 
+}
 
 int main()
 {
