@@ -30,10 +30,22 @@ namespace algo
         uint32_t pointNb;
     } ClusterData;
 
-    typedef std::vector<Point2d> PointSet;
+        typedef struct ClusterData3d
+    {
+        double cumulX;
+        double cumulY;
+        double cumulZ;
+        uint32_t pointNb;
+    } ClusterData3d;
 
+    typedef std::vector<Point2d> PointSet;
+    typedef std::vector<Point3d> PointSet3d;
+
+    // Squared Euclidean distance calculation for 2d points
     double squareDist2d(Point2d ptA, Point2d ptB);
-    double squareDist3d(Point2d ptA, Point2d ptB);
+
+    // Squared Euclidean distance calculation for 3d points
+    double squareDist3d(Point3d ptA, Point3d ptB);
 
     class KMeans
     {
@@ -47,11 +59,24 @@ namespace algo
         // Temporary test function, to be moved later on
         void test2DClustering();
 
-
-        void setPoints(PointSet points);
-
         private:
         PointSet m_points;
+    };
+
+        class KMeans3d
+    {
+        public:
+
+        // Takes a set of 3D points, return a set of k-means centroids
+        PointSet3d kMeansClustering(uint32_t iterations, uint32_t nbClusters);
+
+        // Generate random 3D point set, compute k-means and print results in an opencv window
+        // (green circle : point, red circle : k-means centroid)
+        // Temporary test function, to be moved later on
+        void test3DClustering();
+
+        private:
+        PointSet3d m_points;
     };
 }
 

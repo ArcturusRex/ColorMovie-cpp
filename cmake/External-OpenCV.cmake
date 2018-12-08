@@ -43,6 +43,7 @@ ExternalProject_Add(opencv
     -DWITH_FFMPEG:BOOL=ON
     -DWITH_IPP:BOOL=OFF
     -DWITH_GTK:BOOL=ON
+    -DWITH_VTK:BOOL=ON
     -DBUILD_PNG:BOOL=OFF
     -DBUILD_JPEG:BOOL=ON
     -DBUILD_ZLIB:BOOL=ON
@@ -59,7 +60,7 @@ else()
   set(OPENCV_LIBRARY_DIR ${OPENCV_INSTALL_DIR}/x86/vc12/lib)
 endif()
 
-set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_video opencv_videoio opencv_imgcodecs opencv_features2d)
+set(OPENCV_LIBRARIES opencv_imgproc opencv_core opencv_highgui opencv_video opencv_videoio opencv_imgcodecs opencv_features2d opencv_viz)
 
 include_directories(${OPENCV_INCLUDE_DIR})
 link_directories(${OPENCV_LIBRARY_DIR})
