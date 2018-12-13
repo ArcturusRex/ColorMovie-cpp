@@ -54,10 +54,11 @@ namespace algo
         // Takes a set of 2D points, return a set of k-means centroids
         PointSet kMeansClustering(uint32_t iterations, uint32_t nbClusters);
 
-        // Generate random 2D point set, compute k-means and print results in an opencv window
-        // (green circle : point, red circle : k-means centroid)
-        // Temporary test function, to be moved later on
-        void test2DClustering();
+        // Sets input point set
+        void setPoints(PointSet &pointSet);
+
+        // Gets input point set
+        PointSet& getPoints();
 
         private:
         PointSet m_points;
@@ -70,10 +71,11 @@ namespace algo
         // Takes a set of 3D points, return a set of k-means centroids
         PointSet3d kMeansClustering(uint32_t iterations, uint32_t nbClusters);
 
-        // Generate random 3D point set, compute k-means and print results in an opencv window
-        // (green circle : point, red circle : k-means centroid)
-        // Temporary test function, to be moved later on
-        void test3DClustering();
+        // Sets input point set
+        void setPoints(PointSet3d &pointSet3d);
+
+        // Gets input point set
+        PointSet3d& getPoints();
 
         private:
         PointSet3d m_points;

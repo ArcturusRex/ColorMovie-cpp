@@ -1,5 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
-project (ColorMovie)
+cmake_policy(SET CMP0048 NEW)
+project (ColorMovie VERSION 1.0.0)
+
 set(CMAKE_CXX_STANDARD 17)
 find_package(Git)
 find_package (Threads)
@@ -27,7 +29,8 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/External-OpenCV.cmake)
 set(COLORMOVIE_DEPENDENCIES ${COLORMOVIE_DEPENDENCIES} ${OPENCV_LIBRARIES} ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
 # Sources
-set(COLORMOVIE_SOURCES src/algo/src/kMeansCluster.cpp)
+set(COLORMOVIE_SOURCES  src/algo/src/kMeansCluster.cpp
+                        src/main.cpp)
 
 # Includes
 set(COLOLORMOVIE_INCLUDE_DIRECTORIES src/algo/include)
@@ -35,5 +38,9 @@ include_directories(${COLOLORMOVIE_INCLUDE_DIRECTORIES})
 
 # Target
 add_executable(ColorMovie ${COLORMOVIE_SOURCES})
-add_dependencies(ColorMovie myopencv)
-target_link_libraries(ColorMovie ${COLORMOVIE_DEPENDENCIES} )
+add_dependencies(ColorMovie opencv)
+target_link_libraries(ColorMovie ${COLORMOVIE_DEPENDENCIES})
+
+
+
+
