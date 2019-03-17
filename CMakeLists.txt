@@ -31,11 +31,13 @@ set(COLORMOVIE_DEPENDENCIES ${COLORMOVIE_DEPENDENCIES} ${OPENCV_LIBRARIES} ${CMA
 # Sources
 set(COLORMOVIE_SOURCES  src/algo/src/kMeansCluster.cpp
                         src/io/src/frameExtractor.cpp
+                        src/core/src/frameAnalyzer.cpp
                         src/main.cpp)
 
 # Includes
 set(COLOLORMOVIE_INCLUDE_DIRECTORIES src/algo/include
-                                     src/io/include)
+                                     src/io/include
+                                     src/core/include)
 include_directories(${COLOLORMOVIE_INCLUDE_DIRECTORIES})
 
 # Target

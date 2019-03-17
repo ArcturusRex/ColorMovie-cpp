@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -25,34 +26,36 @@ namespace algo
 
     typedef struct ClusterData
     {
-        double cumulX;
-        double cumulY;
+        double x;
+        double y;
         uint32_t pointNb;
     } ClusterData;
 
-        typedef struct ClusterData3d
+    typedef struct ClusterData3d
     {
-        double cumulX;
-        double cumulY;
-        double cumulZ;
+        double x;
+        double y;
+        double z;
         uint32_t pointNb;
     } ClusterData3d;
 
     typedef std::vector<Point2d> PointSet;
     typedef std::vector<Point3d> PointSet3d;
+    typedef std::vector<ClusterData> ClusterSet;
+    typedef std::vector<ClusterData3d> ClusterSet3d;
 
     // Squared Euclidean distance calculation for 2d points
-    double squareDist2d(Point2d ptA, Point2d ptB);
+    double squareDistToClust2d(Point2d ptA, ClusterData ptB);
 
     // Squared Euclidean distance calculation for 3d points
-    double squareDist3d(Point3d ptA, Point3d ptB);
+    double squareDistToClust3d(Point3d ptA, ClusterData3d ptB);
 
     class KMeans
     {
         public:
 
         // Takes a set of 2D points, return a set of k-means centroids
-        PointSet kMeansClustering(uint32_t iterations, uint32_t nbClusters);
+        ClusterSet kMeansClustering(uint32_t iterations, uint32_t nbClusters);
 
         // Sets input point set
         void setPoints(PointSet &pointSet);
@@ -69,7 +72,7 @@ namespace algo
         public:
 
         // Takes a set of 3D points, return a set of k-means centroids
-        PointSet3d kMeansClustering(uint32_t iterations, uint32_t nbClusters);
+        ClusterSet3d kMeansClustering(uint32_t iterations, uint32_t nbClusters);
 
         // Sets input point set
         void setPoints(PointSet3d &pointSet3d);
