@@ -11,32 +11,32 @@ namespace algo
 {
     typedef struct Point2d
     {
-        float x;
-        float y;
-        uint32_t kMeansId;
+        float x = 0.0;
+        float y = 0.0;
+        uint32_t kMeansId = 0;
     } Point2d;
 
     typedef struct Point3d
     {
-        float x;
-        float y;
-        float z;
-        uint32_t kMeansId;
+        float x = 0.0;
+        float y = 0.0;
+        float z = 0.0;
+        uint32_t kMeansId = 0;
     } Point3d;
 
     typedef struct ClusterData
     {
-        double x;
-        double y;
-        uint32_t pointNb;
+        double x = 0.0;
+        double y = 0.0;
+        uint32_t pointNb = 0;
     } ClusterData;
 
     typedef struct ClusterData3d
     {
-        double x;
-        double y;
-        double z;
-        uint32_t pointNb;
+        double x = 0.0;
+        double y = 0.0;
+        double z = 0.0;
+        uint32_t pointNb = 0;
     } ClusterData3d;
 
     typedef std::vector<Point2d> PointSet;
