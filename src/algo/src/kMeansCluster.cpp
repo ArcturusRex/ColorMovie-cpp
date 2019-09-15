@@ -51,9 +51,7 @@ ClusterSet3d KMeans3d::kMeansClustering(uint32_t iterations, uint32_t nbClusters
     }
     else
     {
-        std::cout << "Number of clusters must be inferior or equal to number of points in set" << std::endl;
-        // TODO : proper error management
-        exit;
+        throw std::runtime_error("Number of clusters must be inferior or equal to number of points in set");
     }
 
     // Clustering according to given centroids and centroid updating

@@ -26,23 +26,27 @@ endif()
 
 # Dependencies
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/External-OpenCV.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/External-Spdlog.cmake)
 set(COLORMOVIE_DEPENDENCIES ${COLORMOVIE_DEPENDENCIES} ${OPENCV_LIBRARIES} ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
 # Sources
 set(COLORMOVIE_SOURCES  src/algo/src/kMeansCluster.cpp
                         src/io/src/frameExtractor.cpp
                         src/core/src/frameAnalyzer.cpp
+                        src/utils/src/loggerUtils.cpp
                         src/main.cpp)
 
 # Includes
 set(COLOLORMOVIE_INCLUDE_DIRECTORIES src/algo/include
                                      src/io/include
-                                     src/core/include)
+                                     src/core/include
+                                     src/utils/include)
 include_directories(${COLOLORMOVIE_INCLUDE_DIRECTORIES})
 
 # Target
 add_executable(ColorMovie ${COLORMOVIE_SOURCES})
-add_dependencies(ColorMovie opencv)
+add_dependencies(ColorMovie opencv spdlog)
+target_link_libraries(ColorMovie INTERFACE ${SPDLOG_LIBRARY})
 target_link_libraries(ColorMovie ${COLORMOVIE_DEPENDENCIES})
 
 
