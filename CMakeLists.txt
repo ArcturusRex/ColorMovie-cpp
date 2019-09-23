@@ -25,8 +25,9 @@ if(NOT EXISTS ${COLORMOVIE_INSTALL_DIRECTORY})
 endif()
 
 # Dependencies
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/External-OpenCV.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/External-Spdlog.cmake)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
 set(COLORMOVIE_DEPENDENCIES ${COLORMOVIE_DEPENDENCIES} ${OPENCV_LIBRARIES} ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
 
 # Sources
@@ -45,9 +46,8 @@ include_directories(${COLOLORMOVIE_INCLUDE_DIRECTORIES})
 
 # Target
 add_executable(ColorMovie ${COLORMOVIE_SOURCES})
-add_dependencies(ColorMovie opencv spdlog)
-target_link_libraries(ColorMovie INTERFACE ${SPDLOG_LIBRARY})
-target_link_libraries(ColorMovie ${COLORMOVIE_DEPENDENCIES})
+target_include_directories(ColorMovie PUBLIC ${CONAN_INCLUDE_DIRS})
+target_link_libraries(ColorMovie ${CONAN_LIBS} ${COLORMOVIE_DEPENDENCIES})
 
 
 

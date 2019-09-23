@@ -47,10 +47,10 @@ void frameExtractor::computeVideoInfo()
     if (m_videoCapture->isOpened())
     {
 
-        *m_videoInfo = { static_cast<uint32_t>(m_videoCapture->get(CV_CAP_PROP_FRAME_HEIGHT)),
-                         static_cast<uint32_t>(m_videoCapture->get(CV_CAP_PROP_FRAME_WIDTH)),
-                         static_cast<uint32_t>(m_videoCapture->get(CV_CAP_PROP_FPS)),
-                         static_cast<uint32_t>(m_videoCapture->get(CV_CAP_PROP_FRAME_COUNT))
+        *m_videoInfo = { static_cast<uint32_t>(m_videoCapture->get(cv::CAP_PROP_FRAME_HEIGHT)),
+                         static_cast<uint32_t>(m_videoCapture->get(cv::CAP_PROP_FRAME_WIDTH)),
+                         static_cast<uint32_t>(m_videoCapture->get(cv::CAP_PROP_FPS)),
+                         static_cast<uint32_t>(m_videoCapture->get(cv::CAP_PROP_FRAME_COUNT))
         };
     }
     else
