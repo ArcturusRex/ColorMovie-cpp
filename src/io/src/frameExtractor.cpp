@@ -9,6 +9,7 @@ frameExtractor::frameExtractor(const std::string& videoPath)
     m_currentFrame = new cv::Mat();
     m_currentFrame->convertTo(*m_currentFrame, CV_8UC3);
     m_videoInfo = new videoInfo_t();
+    m_logger = spdlog::get("logger");
 
     // try to open video
     try
@@ -16,9 +17,9 @@ frameExtractor::frameExtractor(const std::string& videoPath)
         open();
         computeVideoInfo();
     }
-    catch (const std::runtime_error& e)
+    catch (std::string e)
     {
-        std::cerr << e.what() << std::endl;
+        m_logger->error(e);
     }
 
     // retrieve file metadata
@@ -37,8 +38,7 @@ void frameExtractor::open()
     bool rc = m_videoCapture->open(m_videoPath);
     if (rc == false)
     {
-        std::runtime_error re("Cannot open video");
-        throw(re);
+        throw std::string("Cannot open video");
     }
 }
 
@@ -55,8 +55,7 @@ void frameExtractor::computeVideoInfo()
     }
     else
     {
-        std::runtime_error re("Video not opened");
-        throw(re);
+        throw std::string("Video not opened");
     }
 }
 
@@ -68,8 +67,7 @@ void frameExtractor::getVideoInfo(videoInfo_t& videoInfo)
     }
     else
     {
-        std::runtime_error re("Video not opened");
-        throw(re);
+        throw std::string("Cannot get info on video");
     }
 }
 
@@ -80,19 +78,17 @@ void frameExtractor::loadFrame(uint32_t index)
         if (index < m_videoInfo->frameCount)
         {
             // load desired frame
-            m_videoCapture->set(CV_CAP_PROP_POS_FRAMES, index);
+            m_videoCapture->set(cv::CAP_PROP_POS_FRAMES, index);
             *m_videoCapture >> *m_currentFrame;
         }
         else
         {
-            std::runtime_error re("Frame index is out of bounds");
-            throw(re);
+            throw std::string("Frame index is out of bounds");
         }
     }
     else
     {
-        std::runtime_error re("Video not opened");
-        throw(re);
+        throw std::string("Cannot load frame");
     }
 }
 
@@ -102,9 +98,9 @@ void frameExtractor::getFrame(cv::Mat& frame, uint32_t index)
     {
         loadFrame(index);
     }
-    catch(const std::runtime_error& e)
+    catch(std::string e)
     {
-        std::cerr << e.what() << std::endl;
+        m_logger->error(e);
     }
 
     frame = *m_currentFrame;
@@ -116,9 +112,9 @@ void frameExtractor::saveFrame(const std::string& filename, uint32_t index)
     {
         loadFrame(index);
     }
-    catch(const std::runtime_error& e)
+    catch(std::string e)
     {
-        std::cerr << e.what() << std::endl;
+        m_logger->error(e);
     }
     cv::imwrite(filename, *m_currentFrame);
 }

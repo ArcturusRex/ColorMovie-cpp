@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
     {
         fe.getVideoInfo(info);
     }
-    catch(const std::runtime_error& e)
+    catch(const char* e)
     {
-        std::cerr << e.what() << std::endl;
+        logger->error(e);
     }
 
     for (uint32_t i = 0; i < info.frameCount; i+=100)
@@ -34,9 +34,9 @@ int main(int argc, char *argv[])
         {
             fe.getFrame(frame, i);
         }
-        catch(const std::runtime_error& e)
+        catch(const char* e)
         {
-            std::cerr << e.what() << std::endl;
+            logger->error(e);
         }
         clusterVec = fa.clusterizeFrame(frame);
         logger->info("Frame {}/{} clustered", i/100 + 1, info.frameCount/100 + 1);

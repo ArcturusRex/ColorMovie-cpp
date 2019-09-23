@@ -6,6 +6,8 @@
 #include <algorithm>
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui/highgui.hpp"
+#include "spdlog/sinks/rotating_file_sink.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace algo
 {
@@ -35,6 +37,8 @@ namespace algo
     {
         public:
 
+        KMeans3d();
+
         // Takes a set of 3D points, return a set of k-means centroids
         ClusterSet3d kMeansClustering(uint32_t iterations, uint32_t nbClusters);
 
@@ -46,6 +50,7 @@ namespace algo
 
         private:
         PointSet3d m_points;
+        std::shared_ptr<spdlog::logger> m_logger;
     };
 }
 

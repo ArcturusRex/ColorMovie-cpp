@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include "opencv2/opencv.hpp"
+#include "spdlog/sinks/rotating_file_sink.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace io
 {
@@ -30,5 +32,6 @@ class frameExtractor
     cv::Mat* m_currentFrame;
     std::string m_videoPath;
     videoInfo_t* m_videoInfo;
+    std::shared_ptr<spdlog::logger> m_logger;
 };
 }  // namespace io

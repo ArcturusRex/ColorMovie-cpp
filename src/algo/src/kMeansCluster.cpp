@@ -18,6 +18,11 @@ double squareDistToClust3d(Point3d ptA, ClusterData3d ptB)
 }  // namespace algo
 
 using namespace algo;
+KMeans3d::KMeans3d()
+{
+    m_logger = spdlog::get("logger");
+}
+
 void KMeans3d::setPoints(PointSet3d &pointSet)
 {
     m_points = pointSet;
@@ -30,7 +35,7 @@ PointSet3d& KMeans3d::getPoints()
 
 ClusterSet3d KMeans3d::kMeansClustering(uint32_t iterations, uint32_t nbClusters)
 {
-
+    auto start = std::chrono::high_resolution_clock::now();
     // Output k-Means centroids
     ClusterSet3d kMeans3d(nbClusters);
 
@@ -51,7 +56,8 @@ ClusterSet3d KMeans3d::kMeansClustering(uint32_t iterations, uint32_t nbClusters
     }
     else
     {
-        throw std::runtime_error("Number of clusters must be inferior or equal to number of points in set");
+        std::shared_ptr<spdlog::logger> logger = spdlog::get("logger");
+        throw std::string("Number of clusters must be inferior or equal to number of points in set");
     }
 
     // Clustering according to given centroids and centroid updating
@@ -89,7 +95,8 @@ ClusterSet3d KMeans3d::kMeansClustering(uint32_t iterations, uint32_t nbClusters
                                                  cluster.z / std::max(1u,cluster.pointNb),
                                                  cluster.pointNb};
                             return tmp;});
-
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    m_logger->debug("k-means duration : {} ms", std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count());
     return kMeans3d;
 }
