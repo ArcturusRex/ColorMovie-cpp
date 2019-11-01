@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     std::shared_ptr<spdlog::logger> logger = spdlog::get("logger");
     if(!logger)
         throw std::runtime_error("Cannot initialize logger, exiting...");
-    io::frameExtractor fe("input/test.mp4");
+    io::frameExtractor fe("input/SampleVideo.mp4");
     core::frameAnalyzer fa(5, 5);
     algo::ClusterSet3d clusterVec;
     io::videoInfo_t info;
