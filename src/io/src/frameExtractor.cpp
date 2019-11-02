@@ -22,7 +22,6 @@ frameExtractor::frameExtractor(const std::string& videoPath)
         m_logger->error(e);
     }
 
-    // retrieve file metadata
 }
 
 frameExtractor::~frameExtractor()
@@ -40,6 +39,11 @@ void frameExtractor::open()
     {
         throw std::string("Cannot open video");
     }
+    else
+    {
+         m_logger->info("Opening : {}", m_videoPath);
+    }
+    
 }
 
 void frameExtractor::computeVideoInfo()

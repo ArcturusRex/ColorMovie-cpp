@@ -11,13 +11,13 @@
 
 namespace algo
 {
-    typedef struct Point3d
+    typedef struct PointClust
     {
         float x = 0.0;
         float y = 0.0;
         float z = 0.0;
         uint32_t kMeansId = 0;
-    } Point3d;
+    } PointClust;
 
     typedef struct ClusterData3d
     {
@@ -27,11 +27,11 @@ namespace algo
         uint32_t pointNb = 0;
     } ClusterData3d;
 
-    typedef std::vector<Point3d> PointSet3d;
+    typedef std::vector<PointClust> PointSet3d;
     typedef std::vector<ClusterData3d> ClusterSet3d;
 
     // Squared Euclidean distance calculation for 3d points
-    double squareDistToClust3d(Point3d ptA, ClusterData3d ptB);
+    double squareDistToClust3d(PointClust ptA, ClusterData3d ptB);
 
     class KMeans3d
     {

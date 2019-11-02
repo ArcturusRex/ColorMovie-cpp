@@ -21,7 +21,7 @@ algo::ClusterSet3d frameAnalyzer::clusterizeFrame(cv::Mat& frame)
 {
     algo::PointSet3d pointVec;
     algo::ClusterSet3d clusterVec;
-    algo::Point3d point ={0, 0, 0, 0};
+    algo::PointClust point ={0, 0, 0, 0};
     for (uint32_t i = 0; i < frame.rows; ++i)
     {
         for (uint32_t j = 0; j < frame.cols; ++j)

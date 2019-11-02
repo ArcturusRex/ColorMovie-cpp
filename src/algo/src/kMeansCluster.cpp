@@ -8,7 +8,7 @@
 
 namespace algo
 {
-double squareDistToClust3d(Point3d ptA, ClusterData3d ptB)
+double squareDistToClust3d(PointClust ptA, ClusterData3d ptB)
 {
     float dist = {0.0};
 
@@ -42,33 +42,34 @@ ClusterSet3d KMeans3d::kMeansClustering(uint32_t iterations, uint32_t nbClusters
     // Random number generator and seed
     std::random_device r;
     std::mt19937 randomEngine(r());
+    std::uniform_real_distribution dist(0.0, 255.0);
 
     // All indexes for input PointSet
-    std::vector<uint32_t> kMeansId(0, m_points.size());
+    std::vector<uint32_t> kMeansId(nbClusters);
     std::iota(kMeansId.begin(), kMeansId.end(), 0);
-
 
     if (nbClusters <= m_points.size())
     {
-        // Set initial k-means centroïds ids
-        std::shuffle(kMeansId.begin(), kMeansId.end(), randomEngine);
-        kMeansId.resize(nbClusters);
+        // Init : random cluster distribution
+        for(auto & clust : kMeans3d)
+        {
+            clust.x = dist(randomEngine);
+            clust.y = dist(randomEngine);
+            clust.z = dist(randomEngine);
+        }
     }
     else
     {
-        std::shared_ptr<spdlog::logger> logger = spdlog::get("logger");
         throw std::string("Number of clusters must be inferior or equal to number of points in set");
     }
 
+    std::vector<double> distKMeansVec(kMeans3d.size());
     // Clustering according to given centroids and centroid updating
     for (int i =0; i < iterations; i++)
     {
         for (auto & point : m_points)
         {
             // Store square distances between all centroids and given point;
-            std::vector<double> distKMeansVec;
-            distKMeansVec.resize(kMeans3d.size());
-
             std::transform(kMeans3d.begin(), kMeans3d.end(), distKMeansVec.begin(), [=](ClusterData3d cluster){ return squareDistToClust3d(point, cluster);});
 
             // Find nearer centroid, store it and squared distance
