@@ -29,7 +29,7 @@ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-co
 ```bash
 mkdir build && cd build
 conan install .. --build opencv
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=<Debug/Release> ..
 make
 ```
 
